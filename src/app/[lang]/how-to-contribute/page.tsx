@@ -1,7 +1,14 @@
-const Page = () => {
+import {PageFiller} from '@/components/shared/pageFiller';
+import { Locale } from '@/i18n.config';
+import HowToContribute from '@/components/shared/howToContribute' ;
+
+const Page = async () => {
     return (
-        <div>
-            <h1>How to contribute</h1>
+        <div className='flex flex-col w-full items-center'>
+            <PageFiller />
+            <div className='flex flex-col gap-16'>
+               <HowToContribute {lang:Locale} =/>
+            </div>
         </div>
     );
 };
