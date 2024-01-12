@@ -138,7 +138,9 @@
                 "shop": "Shop",
                 "stats": "Stats",
                 "suggestions": "Suggestions",
-                "websiteAnalytics": "Website Analytics"
+                "teaching": "Teaching",
+                "websiteAnalytics": "Website Analytics",
+                "tools": "Tools"
             },
             "title": "Page",
             "MobileNav": {

@@ -1,5 +1,5 @@
-import Post from '@/models/post';
-import { connectToDB } from '@/utils/database';
+import { Post } from '@models';
+import { connectToDB } from '@utils';
 
 export async function GET() {
     // Handle GET request to fetch all posts
@@ -20,10 +20,19 @@ export async function POST(newPost: any) {
         .catch(err => console.log('err'));
     await Post.create({
         title: newPost.title,
-        description: newPost.description,
+        content: newPost.description,
         topic: newPost.topic,
         tags: newPost.tags,
-        content: newPost.content,
+        reactions: {
+            like: [],
+            dislike: [],
+            love: [],
+            haha: [],
+            wow: [],
+            sad: [],
+            angry: [],
+        },
+        comments: [],
     });
     //await Post.create(newPost);
 }

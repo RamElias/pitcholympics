@@ -138,7 +138,9 @@
                 "shop": "חנות",
                 "stats": "סטטיסטיקה",
                 "suggestions": "הצעות",
-                "websiteAnalytics": "נתוני אתר"
+                "teaching": "הוראה",
+                "websiteAnalytics": "נתוני אתר",
+                "tools": "כלים"
             },
             "title": "עמוד",
             "MobileNav": {
