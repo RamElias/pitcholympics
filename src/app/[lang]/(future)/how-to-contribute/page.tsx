@@ -1,15 +1,26 @@
-import {PageFiller} from '@/components/shared/pageFiller';
-import { Locale } from '@/i18n.config';
 import HowToContribute from '@/components/shared/howToContribute' ;
+import { Locale as LocalType } from '@/i18n.config';
+import { getDictionaryClient } from '@utils';
 
-const Page = async () => {
+type Props = {
+    params : {
+        lang: LocalType;
+    }
+}
+
+const Page = ({ params }: Props) => {
+
+    const { lang } = params;
+
+    const dict = getDictionaryClient(lang);
+
+    const { howToContribute } = dict.shared;
+
     return (
-        <div className='flex flex-col w-full items-center'>
-            <PageFiller />
-            <div className='flex flex-col gap-16'>
-               <HowToContribute {lang:Locale} =/>
-            </div>
-        </div>
+            <HowToContribute 
+                howToContribute = {howToContribute} 
+            />
+
     );
 };
 

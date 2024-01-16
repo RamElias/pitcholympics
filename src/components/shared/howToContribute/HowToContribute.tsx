@@ -1,20 +1,17 @@
-import { Locale } from '@/i18n.config';
-import React, { useState } from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import ContributionForm from './ContributionForm';
 
+type Props = {
+    howToContribute: {
+        title: string;
+        instructions: Array<{ text: string }>;
+    };
+};
 
-interface Instruction {
-  text: string;
-  buttonText: string;
-}
 
-interface HowToContributeProps {
-  lang: Locale;
-}
-
-const HowToContribute = ({ lang }) => {
-  const langData = require(`path/to/${lang}.json`);
-  const [showForm, setShowForm] = useState(false);
+const HowToContribute = ({ howToContribute} : Props ) => {
+  const [showForm, setShowForm] = useState(false);  
 
   const containerStyle: React.CSSProperties = {
     display: 'flex',
@@ -23,6 +20,10 @@ const HowToContribute = ({ lang }) => {
     maxWidth: '1200px',
   };
 
+  const paragraphStyle: React.CSSProperties = {
+        marginBottom: '20px',
+    };
+
   const handleFormSubmit = (formData: any) => {
     // Handle form submission logic here
     console.log('Form submitted with data:', formData);
@@ -30,17 +31,16 @@ const HowToContribute = ({ lang }) => {
   };
 
   return (
-    <div style={containerStyle}>
-      <h1>{langData.howToContribute}</h1>
-      {langData.instructions.map((instruction: Instruction, index: number) => (
-        <div key={index}>
-          <p>{instruction.text}</p>
-          <button onClick={() => setShowForm(true)}>{instruction.buttonText}</button>
+        <div style={containerStyle}>
+            <h1>{howToContribute.title}</h1>
+            {howToContribute.instructions.map((instruction, index) => (
+                <div key={index} style={paragraphStyle}>
+                    <p>{instruction.text}</p>
+                </div>
+            ))}
+            <ContributionForm onSubmit={handleFormSubmit} />
         </div>
-      ))}
-      {showForm && <ContributionForm onSubmit={handleFormSubmit} />}
-    </div>
-  );
+    );
 };
 
 export default HowToContribute;

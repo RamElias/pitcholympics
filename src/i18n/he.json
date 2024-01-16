@@ -157,7 +157,24 @@
         "snackbar": {
             "Success": ["עבודה טובה!", "יפה!", "גאון"],
             "Failed": ["נסה שוב", "אולי בפעם הבאה.."]
-        }
+        },
+        "howToContribute": {
+            "title": "איך לתרום לפרוייקט",
+            "instructions": [
+                {
+                "text": " 1 פסקה "
+                },
+                {
+                "text": "2 פסקה "
+                },
+                {
+                "text": "3 פסקה "
+                },
+                {
+                "text": "4 פסקה "
+                }
+            ]
+        }  
     },
     "data": {
         "pianoDataDict": {
