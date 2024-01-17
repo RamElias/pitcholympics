@@ -157,7 +157,24 @@
         "snackbar": {
             "Success": ["Good Job!", "Excellent!", "Genius"],
             "Failed": ["Try again", "Next time.."]
-        }
+        },
+        "howToContribute": {
+            "title": "How to Contribute",
+            "instructions": [
+                {
+                "text": "do 1."
+                },
+                {
+                "text": "do 2."
+                },
+                {
+                "text": "do 3."
+                },
+                {
+                "text": "do 4."
+                }
+            ]
+        }  
     },
     "data": {
         "pianoDataDict": {
