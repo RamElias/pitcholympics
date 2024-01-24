@@ -1,52 +1,76 @@
+import { resolve } from 'path';
 import React, { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
-interface ContributionFormProps {
-  onSubmit: (formData: FormData) => void;
-}
+type FormFields = {
+    name: string;
+    email: string;
+    note: string;
+};
 
-interface FormData {
-  // Add form fields as needed
-  name: string;
-  email: string;
-  // Add more fields as needed
-}
+type Props = {
+    howToContribute: {
+        title: string;
+        instructions: Array<{ text: string }>;
+    };
+};
 
-const ContributionForm: React.FC<ContributionFormProps> = ({ onSubmit }) => {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    // Initialize other fields
-  });
+const ContributionForm = ({ howToContribute }: Props) => {
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors, isSubmitting },
+    } = useForm<FormFields>();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+    const onSubmit: SubmitHandler<FormFields> = async data => {
+        try {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log(data);
+        } catch (error) {
+            setError('root', {
+                message: 'This email is already taken',
+            });
+        }
+    };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // You can add validation logic here if needed
-    onSubmit(formData);
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Email:</label>
-        <input type="email" name="email" value={formData.email} onChange={handleChange} />
-      </div>
-      {/* Add more form fields as needed */}
-      <div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-  );
+    return (
+        <form className='contributeForm' onSubmit={handleSubmit(onSubmit)}>
+            <input
+                {...register('name', { required: 'Name is required' })}
+                type='text'
+                name='name'
+                placeholder='Name'>
+                {errors.name && (
+                    <div className='text-red-500'>{errors.name.message}</div>
+                )}
+            </input>
+            <input
+                {...register('email', {
+                    required: 'Email is required',
+                    validate: value => value.includes('@'),
+                })}
+                type='email'
+                name='email'
+                placeholder='Email'>
+                {errors.email && (
+                    <div className='text-red-500'>{errors.email.message}</div>
+                )}
+            </input>
+            <input
+                {...register('note')}
+                type='text'
+                name='note'
+                placeholder='If you have anything to add please write it here'
+            />
+            <button disabled={isSubmitting} type='submit'>
+                {isSubmitting ? 'Loading...' : 'Submit'}
+            </button>
+            {errors.root && (
+                <div className='text-red-500'> {errors.root.message} </div>
+            )}
+        </form>
+    );
 };
 
 export default ContributionForm;
